@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>dating_profile.qml</file> 
+		<file>style.qss</file> 
+		<file>heart.png</file>
+		<file>heart.gif</file>
+		<file>heart.jpg</file>
+    </qresource>
+</RCC>
