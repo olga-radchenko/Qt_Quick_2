@@ -3,174 +3,305 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
+import QtQuick.Dialogs 1.0
 
 Window {
     id: main_window
     width: 320
     height: 480
     visible: true
-    title: qsTr("Dating form")
+    title:  qsTr("Dating form")
 
     LinearGradient {
-           anchors.fill: parent
-           start: Qt.point(0, 0)
-           end: Qt.point(0, parent.height)
-           gradient: Gradient {
-                GradientStop { position: 0.0; color: "white" }
-                GradientStop { position: 0.1; color: "#fff0f5" }
-                GradientStop { position: 1.0; color: "#f08080" }
-           }
+       anchors.fill: parent
+       start: Qt.point(0, 0)
+       end: Qt.point(0, parent.height)
+       gradient: Gradient {
+            GradientStop { position: 0.0; color: "white" }
+            GradientStop { position: 0.1; color: "#fff0f5" }
+            GradientStop { position: 1.0; color: "#f08080" }
        }
-
+    }
 
     Flickable {
         id: flickable
         anchors.fill: parent
-       // width: main_window.width / 3
-       // height: main_window.height / 3
-
         contentWidth: repeater_element.width
         contentHeight: repeater_element.height+my_column.y
         ScrollBar.vertical: scrollBar
 
-
-        // container
-        ColumnLayout {
+        ColumnLayout { // container
             id: my_column
             x: 30
             y: 75
             width: 260
             height: 190
             Layout.alignment: Qt.AlignCenter
-            // contents
-            ColumnLayout {
+
+            ColumnLayout { // contents
                 id: repeater_element
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                 Layout.fillWidth: true
                 Layout.fillHeight: false
-                spacing: 5
+                spacing: 20
 
-//                Rectangle {
-//                    Layout.fillWidth: false
-//                    Layout.fillHeight: false
-//                    Layout.preferredWidth: 150
-//                    Layout.preferredHeight: 150
-//                    Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
-//                    color: 'white'
+//                Row {
+//                    id: row1
+//                    height: 150
+//                    Layout.fillWidth: true
+//                    Rectangle {
+//                        id: rectangle
+//                        width: 150
+//                        height: 150
+//                        color: "white"
+//                        border.color: "#f08080"
+//                        radius: 10
+//                        anchors.horizontalCenter: parent.horizontalCenter
+//                        anchors.verticalCenter: parent.verticalCenter
+
+//                        Image {
+//                            id:imagemy
+//                            anchors.fill: parent
+//                        }
+
+//                        Button {
+//                            text: "Load image:"
+
+//                            background: Rectangle {
+//                                color: "transparent"
+//                                border.color:"#f08080"
+//                                radius: 10
+//                            }
+
+//                            anchors.verticalCenter: parent.verticalCenter
+//                            anchors.horizontalCenter: parent.horizontalCenter
+//                            onClicked: {
+//                                fileDialog.open()
+//                            }
+//                        }
+//                    }
 //                }
 
-                 RowLayout {
-
+                GroupBox {
+                    font.pointSize: 8
+                    font.family: "MV Boli"
+                    title:"About me"
                     Layout.fillWidth: true
 
-                    Label {
-                        text:qsTr("Name:")
+                    background: Rectangle {
+                        width: parent.width
+                        color: "transparent"
+                        border.color: "#f08080"
+                        radius: 10
                     }
 
-                    TextField {
-                        Layout.fillWidth: true
+                    ColumnLayout {
+                        anchors.fill: parent
 
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            Label { text:qsTr("First name:") }
+
+                            TextField { Layout.fillWidth: true }
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            Label { text:qsTr("Last name:") }
+
+                            TextField { Layout.fillWidth: true }
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            Label {
+                                text:qsTr("Sex:")
+                                Layout.fillWidth: true
+                            }
+
+                            RadioButton {
+                                text: qsTr("Male")
+                                Layout.fillWidth: true
+                                checked: true
+
+                            }
+
+                            RadioButton {
+                                text: qsTr("Female")
+                                Layout.fillWidth: true
+                            }
+                        }
+
+                        RowLayout {
+                            width: parent.width
+                            spacing: 35
+                            Layout.fillWidth: true
+
+                            Label {
+                                 width: 55
+                                 text:qsTr("Age:")
+                                 Layout.fillWidth: false
+                            }
+
+                            SpinBox {
+                                 id: spinBox
+                                 from: 18
+                                 to:99
+                                 x: 60
+                                 width: 200
+                                 Layout.fillWidth: true
+                                 editable: true
+                            }
+                        }
+
+                        RowLayout {
+
+                            Label {
+                                text:qsTr("Education:")
+                                width: 55
+                            }
+
+                            ComboBox {
+                                x: 60
+                                editable: false
+                                Layout.fillWidth: true
+                                model: ListModel {
+                                    id: model
+                                    ListElement { text: "Среднее общее" }
+                                    ListElement { text: "Cреднее профессиональное"}
+                                    ListElement { text: "Высшее" }
+                                }
+                            }
+                        }
+                    }
+                }
+                GroupBox {
+                    font.family: "Mv Boli"
+                    title:"Who i want to date"
+                    Layout.fillWidth: true
+
+                    background: Rectangle {
+                        width: parent.width
+                        color: "transparent"
+                        border.color: "#f08080"
+                        radius: 10
                     }
 
-                 }
+                    ColumnLayout {
+                        RowLayout {
+                            width: parent.width
+                            Label {
+                                text:qsTr("Age range")
+                                horizontalAlignment: Text.AlignHCenter
+                                Layout.fillWidth: true
+                            }
+                        }
 
-                 RowLayout {
-                     Layout.fillWidth: true
-                     Label {
-                         text:qsTr("Last name:")
-                     }
+                        RowLayout {
+                            width: parent.width
 
-                     TextField {
-                         Layout.fillWidth: true
+                            Label {
+                                id:lfirst
+                                text:"25"
+                            }
 
-                     }
-                 }
+                            RangeSlider {
+                                id:slider
+                                width: 180
+                                from: 18
+                                stepSize: 1
 
-                 RowLayout {
-                     width: repeater_element.width
-                     Layout.fillWidth: true
-
-                         RadioButton {
-                             text: qsTr("Male")
-                             checked: true
-
-                         }
-                         RadioButton {
-                             text: qsTr("Female")
-                         }
-
-
-                     }
-
-                 RowLayout {
-                     width: repeater_element.width
-                     Layout.fillWidth: true
-                     Label {
-                         text:qsTr("Age:")
-                     }
-
-                     SpinBox {
-                         id: spinBox
-                             editable: true
-                     }
-                 }
-
-                 RowLayout {
-                     width: repeater_element.width
-                     Layout.fillWidth: true
-                     Label {
-                         text:qsTr("Education:")
-                     }
-
-                     ComboBox {
-                         Layout.fillWidth: true
-                         editable: false
-                         model: ListModel {
-                             id: model
-                             ListElement { text: "Среднее общее" }
-                             ListElement { text: "Cреднее профессиональное"}
-                             ListElement { text: "Высшее" }
-                         }
-                     }
-                 }
-
-                 RowLayout {
-                     width: repeater_element.width
-                     Layout.fillWidth: true
-                     Label {
-                         text:qsTr("Age range:")
-                     }
-
-                     Label {
-                         id:lfirst
-                         text:"25"
-                     }
-
-                     RangeSlider {
-                         id:slider
-                         Layout.fillWidth: true
-                         from: 1
-                         stepSize: 1
-                        to: 99
-                            first.value: 25
-                                second.value: 75
+                                to: 99
+                                first.value: 25
+                                second.value: 90
                                 first.onMoved:  lfirst.text = Math.round(first.value)
-                                second.onMoved:  lsecond.text =  Math.round(second.value)
-                     }
-                     Label {
-                         id:lsecond
-                         text:"75"
-                     }
-                 }
+                                second.onMoved:  lsecond.text = Math.round(second.value)
+                            }
 
+                            Label {
+                                id:lsecond
+                                text:"90"
+                             }
+                        }
 
-//                    Rectangle {
-//                        Layout.fillWidth: true
-//                        Layout.fillHeight: false
-//                        Layout.preferredHeight: 75
-//                        Layout.alignment: Qt.AlignTop
-//                        color: 'black'
-//                    }
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            Label {
+                                text:qsTr("Sex:")
+                                Layout.fillWidth: true
+                            }
+
+                            RadioButton {
+                                height: 20
+                                text: qsTr("Male")
+                                font.pointSize: 7
+                                Layout.fillWidth: true
+                                checked: true
+                            }
+
+                            RadioButton {
+                                height: 20
+                                text: qsTr("Female")
+                                font.pointSize: 7
+                                Layout.fillWidth: true
+                            }
+
+                            RadioButton {
+                                height: 20
+                                text: qsTr("Any")
+                                font.pointSize: 7
+                                Layout.fillWidth: true
+                            }
+                         }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            Label {
+                                 text:qsTr("Education")
+                                 horizontalAlignment: Text.AlignHCenter
+                                 Layout.fillWidth: true
+                            }
+                        }
+
+                        RowLayout {
+                            CheckBox {
+                                 id: checkBox
+                                 text: qsTr("Общее")
+                                 font.pointSize: 7
+                                 Layout.fillWidth: true
+                            }
+
+                            CheckBox {
+                                 id: checkBox1
+                                 text: qsTr("Высшее")
+                                 font.pointSize: 7
+                                 Layout.fillWidth: true
+                            }
+                        }
+
+                        RowLayout {
+                             CheckBox {
+                                 id: checkBox2
+                                 text: qsTr("Профессиональное")
+                                 font.pointSize: 7
+                                 Layout.fillWidth: false
+                             }
+
+                            CheckBox {
+                                id: checkBox3
+                                text: qsTr("Любое")
+                                font.pointSize: 7
+                                Layout.fillWidth: true
+                            }
+                        }
+                    }
+                }
+                RowLayout { }
             }
         }
 
@@ -178,6 +309,7 @@ Window {
             id: row
             y: 10
             anchors.horizontalCenter: my_column.horizontalCenter
+
             Text {
                 id: element
                 x: 20
@@ -186,10 +318,11 @@ Window {
                 height: 30
                 text: qsTr("Dating form")
                 anchors.verticalCenter: parent.verticalCenter
-                font.family: "Verdana"
-                font.pixelSize: 22
+                font.family: "MV Boli"
+                font.pixelSize: 24
                 color:"#f08080"
             }
+
             Image {
                 id: image
                 x: 180
@@ -210,7 +343,7 @@ Window {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
 
-       // try this for fun
+       // fun
        // rotation: 5
 
         contentItem: Rectangle {
@@ -221,13 +354,24 @@ Window {
             color: "transparent"
         }
     }
+
+    FileDialog {
+        id: fileDialog
+        title: "Please choose a file"
+        folder: shortcuts.home
+        onAccepted: {
+            console.log("You chose: " + fileDialog.fileUrls)
+
+        }
+        onRejected: {
+            console.log("Canceled")
+        }
+    }
 }
-
-
-
 
 /*##^##
 Designer {
     D{i:2;anchors_height:200;anchors_width:250}D{i:1;anchors_height:200;anchors_width:100}
+D{i:10;anchors_width:150}
 }
 ##^##*/
