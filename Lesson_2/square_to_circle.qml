@@ -12,15 +12,6 @@ Window {
     visible: true
     title:  qsTr("Square transform")
 
-    function generateRandomColor() {
-      var letters = '0123456789ABCDEF';
-      var color = '#';
-      for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    }
-
     ColumnLayout {
         anchors.fill: parent
 
@@ -48,10 +39,7 @@ Window {
                     else
                         anmation_2.restart()
                 }
-
-
             }
-
         }
 
         PropertyAnimation {
@@ -86,6 +74,5 @@ Window {
             to: 0
             duration: 500
         }
-
     }
 }
